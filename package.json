@@ -1,0 +1,37 @@
+{
+  "name": "ai-prompts-api",
+  "version": "1.0.0",
+  "description": "A production-ready CRUD API for sharing AI prompts with JWT authentication",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "client": "npm run dev --prefix client",
+    "dev:full": "concurrently \"npm run dev\" \"npm run client\""
+  },
+  "keywords": [
+    "ai",
+    "prompts",
+    "api",
+    "express",
+    "mongodb",
+    "jwt",
+    "authentication"
+  ],
+  "author": "Likhith SP",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "express-rate-limit": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^2.0.22"
+  }
+}
