@@ -42,7 +42,7 @@ export const promptsAPI = {
   getAll: async (params = {}) => {
     let query = supabase
       .from('prompts')
-      .select('*, user:user_id(id, username, email)', { count: 'exact' });
+      .select('*', { count: 'exact' });
 
     // Search functionality
     if (params.q) {
@@ -75,6 +75,9 @@ export const promptsAPI = {
     query = query.range(from, to);
 
     const { data, error, count } = await query;
+    
+    console.log('Supabase query result:', { data, error, count });
+    
     if (error) throw error;
 
     return {
@@ -93,7 +96,7 @@ export const promptsAPI = {
   getById: async (id) => {
     const { data, error } = await supabase
       .from('prompts')
-      .select('*, user:user_id(id, username, email)')
+      .select('*')
       .eq('id', id)
       .single();
 

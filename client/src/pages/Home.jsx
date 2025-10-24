@@ -36,11 +36,14 @@ const Home = () => {
       if (search) params.q = search;
       if (category) params.category = category;
 
+      console.log('Fetching prompts with params:', params);
       const response = await promptsAPI.getAll(params);
+      console.log('Prompts response:', response);
       setPrompts(response.data.prompts);
       setPagination(response.data.pagination);
     } catch (error) {
       console.error('Error fetching prompts:', error);
+      console.error('Error details:', error.message);
     } finally {
       setLoading(false);
     }

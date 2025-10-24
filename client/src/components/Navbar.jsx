@@ -18,7 +18,9 @@ const Navbar = () => {
           {user ? (
             <>
               <Link to="/create"><i className="fa-solid fa-plus"></i> Create Prompt</Link>
-              <span className="username"><i className="fa-solid fa-user"></i> {user.username}</span>
+              <span className="username">
+                <i className="fa-solid fa-user"></i> {user.user_metadata?.username || user.email?.split('@')[0] || 'User'}
+              </span>
               <button onClick={logout} className="btn-logout">
                 <i className="fa-solid fa-right-from-bracket"></i> Logout
               </button>

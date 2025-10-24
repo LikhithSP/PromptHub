@@ -11,6 +11,7 @@ const PromptDetail = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showCopyToast, setShowCopyToast] = useState(false);
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -45,7 +46,8 @@ const PromptDetail = () => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(prompt.prompt);
-    alert('Prompt copied to clipboard!');
+    setShowCopyToast(true);
+    setTimeout(() => setShowCopyToast(false), 2000);
   };
 
   const handleLike = async () => {
@@ -78,6 +80,11 @@ const PromptDetail = () => {
 
   return (
     <div className="detail-container">
+      {showCopyToast && (
+        <div className="copy-toast">
+          <i className="fa-solid fa-check-circle"></i> Copied to clipboard!
+        </div>
+      )}
       <div className="detail-box">
         <div className="detail-header">
           <div>
