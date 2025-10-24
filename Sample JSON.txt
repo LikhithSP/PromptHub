@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Morning Routine Optimizer",
+    "category": "Productivity",
+    "prompt": "Design a personalized morning routine that maximizes focus, energy, and creativity based on current science.",
+    "author": "Likhith SP",
+    "tags": ["routine", "focus", "wellness"]
+  }
+]
