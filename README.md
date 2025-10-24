@@ -1,6 +1,250 @@
 # 🚀 PromptHub - AI Prompts Sharing Platform
 
-A production-ready full-stack application for sharing and discovering AI prompts, built with **React** and **Express.js**. Features a clean, professional interface inspired by Notion, Perplexity, and Linear with dark/light theme support.
+A modern full-stack application for sharing and discovering AI prompts, built with **React** and **Supabase**. Features a clean, professional interface inspired by Notion, Perplexity, and Linear with dark/light theme support.
+
+## ✨ Features
+
+### Backend (Supabase)
+
+- ✅ **Supabase Authentication** - Secure user registration and login with email
+- ✅ **Row Level Security (RLS)** - Database-level security policies
+- ✅ **Real-time Capabilities** - Built-in real-time subscriptions
+- ✅ **PostgreSQL Database** - Powerful relational database
+- ✅ **Automatic API Generation** - RESTful API auto-generated from database schema
+- ✅ **User Ownership** - Users can only edit/delete their own prompts
+- ✅ **Like System** - Track likes per prompt with user-specific like status
+
+### Frontend (React + Vite)
+
+- ✅ **Professional UI Design** - Clean, minimalist interface with neutral colors and generous whitespace
+- ✅ **Dark/Light Theme Toggle** - Seamless theme switching with localStorage persistence
+- ✅ **Font Awesome Icons** - Modern icon system throughout the application
+- ✅ **Split-Screen Auth Pages** - Beautiful login/register pages with background images
+- ✅ **Instagram-Style Likes** - Heart animation with real-time like count updates
+- ✅ **Enhanced Home Page** - Hero section with search/filter capabilities
+- ✅ **Authentication Flow** - Complete login, register, and protected routes
+- ✅ **CRUD Operations** - Create, read, update, and delete prompts
+- ✅ **Real-time Search** - Search and filter prompts dynamically across 15+ categories
+- ✅ **Pagination** - Navigate through pages of prompts
+- ✅ **Copy to Clipboard** - Quick copy functionality for prompts
+- ✅ **Private Routes** - Protected pages for authenticated users only
+- ✅ **Responsive Design** - Mobile-friendly layout with smooth transitions
+
+## 🛠️ Tech Stack
+
+### Backend
+- **Supabase** - Backend as a Service (BaaS)
+- **PostgreSQL** - Database
+- **Row Level Security** - Database-level authorization
+- **Supabase Auth** - Authentication service
+
+### Frontend
+- **React 19** - UI library
+- **React Router** - Navigation and routing
+- **Supabase JS Client** - Supabase integration
+- **Vite** - Build tool and dev server
+- **Font Awesome** - Icon library
+- **CSS Variables** - Theme system implementation
+
+## 📦 Installation
+
+### Prerequisites
+- Node.js (v16+)
+- A Supabase account (free tier available)
+
+### Setup
+
+1. **Clone the repository**
+```bash
+git clone <your-repo-url>
+cd PromptHub
+```
+
+2. **Install dependencies**
+```bash
+npm install --prefix client
+```
+
+3. **Configure environment variables**
+Create a `client/.env` file:
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. **Set up Supabase**
+   - See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed Supabase setup instructions
+   - Run the SQL schema to create tables and policies
+
+## 🚀 Running the Application
+
+### Development Mode
+
+```bash
+npm run dev
+```
+
+This will start the frontend at `http://localhost:5173`
+
+### Production Build
+
+```bash
+npm run build
+```
+
+## 📚 Supabase Database Schema
+
+### Prompts Table
+```sql
+CREATE TABLE prompts (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  title TEXT NOT NULL,
+  category TEXT DEFAULT 'General',
+  prompt TEXT NOT NULL,
+  author TEXT DEFAULT 'Anonymous',
+  tags TEXT[] DEFAULT '{}',
+  likes INTEGER DEFAULT 0,
+  liked_by UUID[] DEFAULT '{}',
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
+
+### Authentication
+Handled by Supabase Auth with built-in user management.
+
+## 🔐 Security Features
+
+1. **Supabase Authentication** - Secure email/password authentication
+2. **Row Level Security (RLS)** - Database-level access control
+3. **User Ownership Policies** - Users can only modify their own content
+4. **Secure API Keys** - Environment-based key management
+5. **HTTPS Only** - All Supabase connections use HTTPS
+
+## 📱 Frontend Routes
+
+- `/` - Home page with search and filters (public)
+- `/login` - Login page with split-screen design (public)
+- `/register` - Register page with split-screen design (public)
+- `/prompt/:id` - Prompt detail page with like functionality (public)
+- `/create` - Create prompt with 15+ categories (protected)
+
+## 🎨 UI Features & Design System
+
+### Theme System
+- **Dark/Light Mode** - Toggle between themes with localStorage persistence
+- **CSS Variables** - Comprehensive color system for easy customization
+- **Smooth Transitions** - Transitions on theme changes
+- **System Preference Detection** - Automatically detects user's system theme
+
+### Available Categories
+1. General
+2. Creative Writing
+3. Writing
+4. Business
+5. Education
+6. Technical
+7. Music
+8. Fun
+9. Startups
+10. AI Tools
+11. Productivity
+12. Marketing
+13. Design
+14. Coding
+15. Data Analysis
+
+## 🚀 Deployment
+
+### Quick Deploy to Vercel
+
+1. **Push to GitHub**
+```bash
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+```
+
+2. **Deploy to Vercel**
+   - Visit [vercel.com](https://vercel.com)
+   - Import your repository
+   - Configure environment variables:
+     - `VITE_SUPABASE_URL`
+     - `VITE_SUPABASE_ANON_KEY`
+   - Deploy!
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+## 📝 Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `VITE_SUPABASE_URL` | Your Supabase project URL | `https://xxx.supabase.co` |
+| `VITE_SUPABASE_ANON_KEY` | Your Supabase anonymous key | `eyJhbG...` |
+
+## 🎯 Key Features Explained
+
+### Like System
+- Users can like/unlike prompts with a single click
+- Real-time updates to like count
+- Instagram-style heart animation
+- Backend tracks which users liked each prompt
+- Persists to PostgreSQL with `liked_by` array
+
+### Theme Toggle
+- Seamless switching between dark and light modes
+- Preferences saved to localStorage
+- Automatic system preference detection on first visit
+- Smooth CSS transitions on all color changes
+- Theme persists across sessions
+
+### Authentication Flow
+1. User registers/logs in → Supabase Auth handles it
+2. Session managed by Supabase (stored in localStorage)
+3. Auth state synced across tabs
+4. Protected routes verify session
+5. Logout clears session and redirects
+
+### Search & Filter
+- Real-time search across prompt titles and content
+- Filter by 15+ categories
+- Pagination with customizable page size
+- Results update dynamically without page reload
+
+## 🔧 Troubleshooting
+
+### Supabase Connection Issues
+- Verify environment variables in `client/.env`
+- Check Supabase project status
+- Ensure anon key is correct
+
+### Authentication Not Working
+- Check Supabase Auth settings
+- Verify redirect URLs are configured
+- Check browser console for errors
+
+### Theme Not Persisting
+- Clear browser cache and localStorage
+- Check browser console for errors
+- Verify ThemeProvider wraps App component
+
+## 📚 Documentation
+
+- [Deployment Guide](./DEPLOYMENT.md) - Complete deployment instructions
+- [Supabase Docs](https://supabase.com/docs) - Official Supabase documentation
+- [Vercel Docs](https://vercel.com/docs) - Official Vercel documentation
+
+## 📄 License
+
+MIT
+
+## 👤 Author
+
+Likhith SP
+
+---
+
+**Built with ❤️ using React, Vite, Supabase, and deployed on Vercel**
 
 ## ✨ Features
 

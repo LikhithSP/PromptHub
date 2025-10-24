@@ -10,10 +10,24 @@ const Home = () => {
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState(null);
+  const [availableCategories, setAvailableCategories] = useState([]);
 
   useEffect(() => {
     fetchPrompts();
   }, [page, search, category]);
+
+  useEffect(() => {
+    fetchAvailableCategories();
+  }, []); // Fetch categories only once on mount
+
+  const fetchAvailableCategories = async () => {
+    try {
+      const response = await promptsAPI.getAvailableCategories();
+      setAvailableCategories(response.data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
 
   const fetchPrompts = async () => {
     setLoading(true);
@@ -38,6 +52,7 @@ const Home = () => {
     try {
       await promptsAPI.delete(id);
       fetchPrompts();
+      fetchAvailableCategories(); // Refresh categories after delete
     } catch (error) {
       alert(error.response?.data?.message || 'Failed to delete prompt');
     }
@@ -69,21 +84,11 @@ const Home = () => {
           />
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">All Categories</option>
-            <option value="General">General</option>
-            <option value="Creative">Creative</option>
-            <option value="Writing">Writing</option>
-            <option value="Technical">Technical</option>
-            <option value="Business">Business</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Education">Education</option>
-            <option value="Music">Music</option>
-            <option value="Fun">Fun</option>
-            <option value="Startups">Startups</option>
-            <option value="AI Tools">AI Tools</option>
-            <option value="Productivity">Productivity</option>
-            <option value="Design">Design</option>
-            <option value="Coding">Coding</option>
-            <option value="Data Analysis">Data Analysis</option>
+            {availableCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
           <button type="submit"><i className="fa-solid fa-magnifying-glass"></i> Search</button>
         </form>
@@ -96,7 +101,7 @@ const Home = () => {
           <>
             <div className="prompts-grid">
               {prompts.map((prompt) => (
-                <PromptCard key={prompt._id} prompt={prompt} onDelete={handleDelete} />
+                <PromptCard key={prompt.id} prompt={prompt} onDelete={handleDelete} />
               ))}
             </div>
 

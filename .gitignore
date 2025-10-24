@@ -2,10 +2,18 @@
 node_modules/
 client/node_modules/
 
-# Optional: Ignore logs and environment files
-*.log
+# Environment variables
 .env
+client/.env
+
+# Optional: Ignore logs
+*.log
 
 # Optional: Ignore build output
 /dist/
 client/dist/
+
+# Optional: OS files
+.DS_Store
+Thumbs.db
+

@@ -74,7 +74,7 @@ const PromptDetail = () => {
   if (error) return <div className="error">{error}</div>;
   if (!prompt) return <div className="error">Prompt not found</div>;
 
-  const canManage = user && prompt.user && user._id === prompt.user._id;
+  const canManage = user && prompt.user_id && user.id === prompt.user_id;
 
   return (
     <div className="detail-container">
@@ -92,12 +92,12 @@ const PromptDetail = () => {
               >
                 <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> {likeCount}
               </button>
-              <span><i className="fa-solid fa-calendar"></i> {new Date(prompt.createdAt).toLocaleDateString()}</span>
+              <span><i className="fa-solid fa-calendar"></i> {new Date(prompt.created_at).toLocaleDateString()}</span>
             </div>
           </div>
           {canManage && (
             <div className="actions">
-              <Link to={`/edit/${prompt._id}`} className="btn-edit">
+              <Link to={`/edit/${prompt.id}`} className="btn-edit">
                 <i className="fa-solid fa-pen"></i> Edit
               </Link>
               <button onClick={handleDelete} className="btn-delete">

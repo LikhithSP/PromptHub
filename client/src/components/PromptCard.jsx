@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { promptsAPI } from '../utils/api';
+import { useAuth } from '../context/AuthContext';
 import './PromptCard.css';
 
 const PromptCard = ({ prompt, onDelete, onLikeUpdate }) => {
-  const canManage = prompt.user && localStorage.getItem('token');
-  const isAuthenticated = !!localStorage.getItem('token');
+  const { user } = useAuth();
+  const canManage = user && prompt.user_id && user.id === prompt.user_id;
   const [isLiked, setIsLiked] = useState(prompt.isLiked || false);
   const [likeCount, setLikeCount] = useState(prompt.likes);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -14,7 +15,7 @@ const PromptCard = ({ prompt, onDelete, onLikeUpdate }) => {
     e.preventDefault();
     e.stopPropagation();
     
-    if (!isAuthenticated) {
+    if (!user) {
       alert('Please login to like prompts');
       return;
     }
@@ -23,13 +24,13 @@ const PromptCard = ({ prompt, onDelete, onLikeUpdate }) => {
       setIsAnimating(true);
       
       try {
-        const response = await promptsAPI.like(prompt._id);
+        const response = await promptsAPI.like(prompt.id);
         setIsLiked(response.data.isLiked);
         setLikeCount(response.data.likes);
         
         // Call parent update function if provided
         if (onLikeUpdate) {
-          onLikeUpdate(prompt._id, response.data.isLiked);
+          onLikeUpdate(prompt.id, response.data.isLiked);
         }
       } catch (error) {
         console.error('Failed to like prompt:', error);
@@ -66,15 +67,15 @@ const PromptCard = ({ prompt, onDelete, onLikeUpdate }) => {
           </button>
         </div>
         <div className="actions">
-          <Link to={`/prompt/${prompt._id}`} className="btn-view">
+          <Link to={`/prompt/${prompt.id}`} className="btn-view">
             <i className="fa-solid fa-arrow-right"></i> View
           </Link>
           {canManage && (
             <>
-              <Link to={`/edit/${prompt._id}`} className="btn-edit">
+              <Link to={`/edit/${prompt.id}`} className="btn-edit">
                 <i className="fa-solid fa-pen"></i> Edit
               </Link>
-              <button onClick={() => onDelete(prompt._id)} className="btn-delete">
+              <button onClick={() => onDelete(prompt.id)} className="btn-delete">
                 <i className="fa-solid fa-trash"></i> Delete
               </button>
             </>

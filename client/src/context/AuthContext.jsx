@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../lib/supabaseClient';
 import { authAPI } from '../utils/api';
 
 const AuthContext = createContext();
@@ -18,41 +19,51 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuth();
+    // Check active sessions and sets the user
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen for changes on auth state (signed in, signed out, etc.)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const checkAuth = async () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const response = await authAPI.getMe();
-        setUser(response.data);
-      } catch (error) {
-        localStorage.removeItem('token');
-      }
-    }
-    setLoading(false);
-  };
-
   const login = async (credentials) => {
-    const response = await authAPI.login(credentials);
-    localStorage.setItem('token', response.data.token);
-    setUser(response.data);
-    return response.data;
+    try {
+      const response = await authAPI.login(credentials);
+      setUser(response.data.user);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   };
 
   const register = async (userData) => {
-    const response = await authAPI.register(userData);
-    localStorage.setItem('token', response.data.token);
-    setUser(response.data);
-    return response.data;
+    try {
+      const response = await authAPI.register(userData);
+      setUser(response.data.user);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    navigate('/');
-    window.location.reload();
+  const logout = async () => {
+    try {
+      await authAPI.logout();
+      setUser(null);
+      navigate('/');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (
