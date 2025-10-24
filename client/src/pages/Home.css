@@ -1,0 +1,181 @@
+.home {
+  min-height: calc(100vh - 56px);
+}
+
+.hero {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)),
+    url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/twcomponents/header.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+[data-theme="dark"] .hero {
+  background-image: 
+    linear-gradient(rgba(23, 23, 23, 0.85), rgba(23, 23, 23, 0.85)),
+    url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/twcomponents/header.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero h1 {
+  font-size: 2.25rem;
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+}
+
+.search-bar {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  background: transparent;
+  padding: 0;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  transition: all 0.15s ease;
+  letter-spacing: -0.01em;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.search-bar input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.search-bar select {
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  min-width: 150px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: -0.01em;
+}
+
+.search-bar select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.search-bar button {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .search-bar button {
+  color: var(--color-background);
+}
+
+.search-bar button:hover {
+  background: var(--color-accent-hover);
+}
+
+.loading,
+.no-prompts {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.prompts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl) 0;
+}
+
+.btn-page {
+  background: var(--color-accent);
+  color: white;
+  border: 1px solid var(--color-accent);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .btn-page {
+  color: var(--color-background);
+}
+
+.btn-page:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.btn-page:disabled {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+}

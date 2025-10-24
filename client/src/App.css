@@ -1,0 +1,17 @@
+.app {
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.loading {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}

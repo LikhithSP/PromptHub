@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Light Theme Colors */
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-border: #e5e5e5;
+  --color-border-hover: #d4d4d4;
+  
+  /* Text Colors */
+  --color-text-primary: #171717;
+  --color-text-secondary: #525252;
+  --color-text-tertiary: #a3a3a3;
+  
+  /* Accent Colors */
+  --color-accent: #3b3b3b;
+  --color-accent-hover: #262626;
+  --color-accent-subtle: #f5f5f5;
+  
+  /* Semantic Colors */
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-success: #16a34a;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Typography */
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme Colors */
+  --color-background: #0a0a0a;
+  --color-surface: #171717;
+  --color-border: #262626;
+  --color-border-hover: #404040;
+  
+  /* Text Colors */
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a3a3a3;
+  --color-text-tertiary: #737373;
+  
+  /* Accent Colors */
+  --color-accent: #fafafa;
+  --color-accent-hover: #e5e5e5;
+  --color-accent-subtle: #262626;
+  
+  /* Semantic Colors */
+  --color-error: #ef4444;
+  --color-error-bg: #1f1313;
+  --color-success: #22c55e;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Font Awesome Icon Styling */
+i {
+  display: inline-block;
+}
+
+button i,
+a i {
+  margin-right: 6px;
+}
+
+button i:only-child,
+a i:only-child {
+  margin-right: 0;
+}
+
+.fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Theme Toggle Styles */
+.theme-toggle {
+  position: relative;
+  width: 56px;
+  height: 28px;
+  background: var(--color-border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid var(--color-border-hover);
+}
+
+.theme-toggle:hover {
+  background: var(--color-border-hover);
+}
+
+.theme-toggle-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  background: var(--color-surface);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle-slider i {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .theme-toggle-slider {
+  transform: translateX(28px);
+}
+
+/* Smooth transitions for theme change */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Preserve specific transitions for interactive elements */
+a,
+button,
+input,
+select,
+textarea,
+.prompt-card,
+.theme-toggle-slider {
+  transition: all 0.15s ease;
+}
+
+*:focus {
+  transition: none;
+}

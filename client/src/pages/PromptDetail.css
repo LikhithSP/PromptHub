@@ -1,0 +1,226 @@
+.detail-container {
+  min-height: calc(100vh - 56px);
+  background: var(--color-background);
+  padding: var(--spacing-xl);
+}
+
+.detail-box {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--spacing-2xl);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail-header h1 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--color-text-primary);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+
+.meta-info {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  align-items: center;
+}
+
+.meta-info .like-button {
+  background: none;
+  border: none;
+  color: var(--color-text-tertiary);
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+  font-family: inherit;
+}
+
+.meta-info .like-button:hover {
+  background: var(--color-accent-subtle);
+  color: var(--color-text-secondary);
+}
+
+.meta-info .like-button i {
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+}
+
+.meta-info .like-button.liked {
+  color: #ef4444;
+}
+
+.meta-info .like-button.liked:hover {
+  color: #dc2626;
+}
+
+.meta-info .like-button.animating i {
+  animation: heartBeat 0.6s ease;
+}
+
+.category {
+  background: var(--color-accent-subtle);
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  letter-spacing: -0.01em;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.btn-edit {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.btn-delete {
+  background: transparent;
+  color: var(--color-error);
+}
+
+.btn-edit:hover {
+  background: var(--color-accent-subtle);
+  color: var(--color-text-primary);
+}
+
+.btn-delete:hover {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.tag {
+  background: transparent;
+  color: var(--color-text-tertiary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  border: 1px solid var(--color-border);
+  letter-spacing: -0.01em;
+}
+
+.prompt-content {
+  background: var(--color-accent-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.prompt-content h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prompt-content pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.btn-copy {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .btn-copy {
+  color: var(--color-background);
+}
+
+.btn-copy:hover {
+  background: var(--color-accent-hover);
+}
+
+.back-link {
+  margin-top: var(--spacing-xl);
+}
+
+.back-link a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+}
+
+.back-link a:hover {
+  color: var(--color-text-primary);
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.error {
+  color: var(--color-error);
+}
