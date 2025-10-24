@@ -74,7 +74,9 @@ const Home = () => {
           <img src="/favicon.svg" alt="Prompt icon" style={{height: '2em', verticalAlign: 'middle', marginRight: '0.5em'}} />
           Welcome to PromptHub
         </h1>
-        <p>Discover and share amazing AI prompts</p>
+        <p>
+          "Explore creative AI prompts, and publish your own to inspire others."
+        </p>
       </div>
 
       <div className="container">
