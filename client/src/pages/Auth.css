@@ -22,11 +22,12 @@
   background-repeat: no-repeat;
 }
 
-/* Login page specific background */
+/* Login page specific background - use provided Unsplash image */
 .login-page .auth-hero {
-  background-image: 
-    linear-gradient(rgba(22, 19, 19, 0.25), rgba(0, 0, 0, 0.47)),
-    url('https://s.yimg.com/ny/api/res/1.2/iYnifHjhgv7cDS70r4tBag--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTk-/https://s.yimg.com/os/creatr-uploaded-images/2025-01/d2356540-d36f-11ef-9dec-688d7d4a86cc');
+  /* subtle dark overlay in light mode so the foliage shows through */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    url('https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -45,9 +46,10 @@
 
 /* Login page specific background - dark mode */
 [data-theme="dark"] .login-page .auth-hero {
-  background-image: 
-    linear-gradient(rgba(23, 23, 23, 0.40), rgba(23, 23, 23, 0.40)),
-    url('https://s.yimg.com/ny/api/res/1.2/iYnifHjhgv7cDS70r4tBag--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTk-/https://s.yimg.com/os/creatr-uploaded-images/2025-01/d2356540-d36f-11ef-9dec-688d7d4a86cc');
+  /* slightly stronger dark overlay in dark mode for maximum contrast */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url('https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -229,3 +229,59 @@
   background: var(--color-error-bg);
   border-color: var(--color-error);
 }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .prompt-card {
+    padding: var(--spacing-md);
+  }
+
+  .prompt-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .prompt-header h3 {
+    font-size: 0.875rem;
+  }
+
+  .prompt-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .btn-view,
+  .btn-edit,
+  .btn-delete {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .prompt-card {
+    padding: var(--spacing-sm);
+  }
+
+  .prompt-text {
+    font-size: 0.8125rem;
+  }
+
+  .meta {
+    font-size: 0.6875rem;
+  }
+
+  .btn-view,
+  .btn-edit,
+  .btn-delete {
+    padding: 5px 10px;
+    font-size: 0.6875rem;
+  }
+}
