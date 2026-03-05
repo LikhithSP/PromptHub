@@ -69,7 +69,15 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="hero">
+      <div 
+        className="hero"
+        style={{
+          backgroundImage: 'url(https://www.shutterstock.com/image-illustration/modern-fractal-glass-gradient-background-600nw-2717890317.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
         <h1>
           <img src="/favicon.svg" alt="Prompt icon" style={{height: '2em', verticalAlign: 'middle', marginRight: '0.5em'}} />
           Welcome to PromptHub

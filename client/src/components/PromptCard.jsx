@@ -28,7 +28,6 @@ const PromptCard = ({ prompt, onDelete, onLikeUpdate }) => {
         setIsLiked(response.data.isLiked);
         setLikeCount(response.data.likes);
         
-        // Call parent update function if provided
         if (onLikeUpdate) {
           onLikeUpdate(prompt.id, response.data.isLiked);
         }
@@ -42,47 +41,55 @@ const PromptCard = ({ prompt, onDelete, onLikeUpdate }) => {
   };
 
   return (
-    <div className="prompt-card">
-      <div className="prompt-header">
-        <h3>{prompt.title}</h3>
-        <span className="category">{prompt.category}</span>
-      </div>
-      <p className="prompt-text">{prompt.prompt.substring(0, 150)}...</p>
-      <div className="tags">
-        {prompt.tags.map((tag, index) => (
-          <span key={index} className="tag">
-            #{tag}
-          </span>
-        ))}
-      </div>
-      <div className="prompt-footer">
-        <div className="meta">
-          <span><i className="fa-solid fa-user"></i> {prompt.author}</span>
-          <button 
-            className={`like-button ${isLiked ? 'liked' : ''} ${isAnimating ? 'animating' : ''}`}
-            onClick={handleLike}
-            aria-label="Like"
-          >
-            <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> {likeCount}
-          </button>
+    <Link to={`/prompt/${prompt.id}`} className="prompt-card-link">
+      <div className="prompt-card">
+        {prompt.image_url && (
+          <div className="prompt-image-container">
+            <img src={prompt.image_url} alt={prompt.title} className="prompt-image" />
+          </div>
+        )}
+        <div className="prompt-header">
+          <h3>{prompt.title}</h3>
+          <span className="category">{prompt.category}</span>
         </div>
-        <div className="actions">
-          <Link to={`/prompt/${prompt.id}`} className="btn-view">
-            <i className="fa-solid fa-arrow-right"></i> View
-          </Link>
-          {canManage && (
-            <>
-              <Link to={`/edit/${prompt.id}`} className="btn-edit">
-                <i className="fa-solid fa-pen"></i> Edit
-              </Link>
-              <button onClick={() => onDelete(prompt.id)} className="btn-delete">
-                <i className="fa-solid fa-trash"></i> Delete
-              </button>
-            </>
-          )}
+        <p className="prompt-text">{prompt.prompt.substring(0, 150)}...</p>
+        <div className="tags">
+          {prompt.tags.map((tag, index) => (
+            <span key={index} className="tag">
+              #{tag}
+            </span>
+          ))}
+        </div>
+        <div className="prompt-footer">
+          <div className="meta">
+            <span><i className="fa-solid fa-user"></i> {prompt.author}</span>
+            <button 
+              className={`like-button ${isLiked ? 'liked' : ''} ${isAnimating ? 'animating' : ''}`}
+              onClick={handleLike}
+              aria-label="Like"
+            >
+              <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> {likeCount}
+            </button>
+          </div>
+          <div className="actions">
+            {canManage && (
+              <>
+                <Link to={`/edit/${prompt.id}`} className="btn-edit" onClick={(e) => e.stopPropagation()}>
+                  <i className="fa-solid fa-pen"></i> Edit
+                </Link>
+                <button onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onDelete(prompt.id);
+                }} className="btn-delete">
+                  <i className="fa-solid fa-trash"></i> Delete
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,10 +1,20 @@
+.prompt-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  height: 100%;
+}
+
 .prompt-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  padding: var(--spacing-lg);
+  overflow: hidden;
   transition: all 0.15s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .prompt-card:hover {
@@ -16,11 +26,33 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.prompt-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-border) 0%, var(--color-accent-subtle) 100%);
+  border-radius: 0;
+}
+
+.prompt-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.prompt-card:hover .prompt-image {
+  transform: scale(1.08);
+}
+
 .prompt-header {
+  padding: var(--spacing-lg) var(--spacing-lg) 0 var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   display: flex;
   justify-content: space-between;
   align-items: start;
-  margin-bottom: var(--spacing-md);
   gap: var(--spacing-md);
 }
 
@@ -51,6 +83,7 @@
   margin-bottom: var(--spacing-md);
   font-size: 0.875rem;
   letter-spacing: -0.01em;
+  padding: 0 var(--spacing-lg);
 }
 
 .tags {
@@ -58,6 +91,7 @@
   flex-wrap: wrap;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
+  padding: 0 var(--spacing-lg);
 }
 
 .tag {
@@ -74,48 +108,53 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   border-top: 1px solid var(--color-border);
   gap: var(--spacing-sm);
-  min-height: 40px;
+  min-height: auto;
+  margin-top: auto;
 }
 
 .meta {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: 6px;
   color: var(--color-text-tertiary);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   letter-spacing: -0.01em;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .meta span {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   white-space: nowrap;
 }
 
 .meta i {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
 }
 
 .like-button {
   background: none;
   border: none;
   color: var(--color-text-tertiary);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 6px;
-  border-radius: 4px;
+  gap: 3px;
+  padding: 3px 5px;
+  border-radius: 3px;
   transition: all 0.2s ease;
   letter-spacing: -0.01em;
   font-family: inherit;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .like-button:hover {
@@ -124,7 +163,7 @@
 }
 
 .like-button i {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   transition: all 0.3s ease;
 }
 
@@ -166,16 +205,17 @@
 
 .actions {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: 5px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .btn-view,
 .btn-edit,
 .btn-delete {
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
   border: 1px solid var(--color-border);
   cursor: pointer;
   text-decoration: none;
@@ -185,23 +225,14 @@
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
+  flex-shrink: 0;
 }
 
 .btn-view i,
 .btn-edit i,
 .btn-delete i {
-  font-size: 0.75rem;
-}
-
-.btn-view {
-  background: var(--color-accent);
-  color: white;
-  border-color: var(--color-accent);
-}
-
-[data-theme="dark"] .btn-view {
-  color: var(--color-background);
+  font-size: 0.65rem;
 }
 
 .btn-edit {
@@ -213,11 +244,6 @@
   background: transparent;
   color: var(--color-error);
   border-color: var(--color-border);
-}
-
-.btn-view:hover {
-  background: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
 }
 
 .btn-edit:hover {

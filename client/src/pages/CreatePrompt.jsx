@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { promptsAPI } from '../utils/api';
+import { supabase } from '../lib/supabaseClient';
 import './CreatePrompt.css';
 
 const CreatePrompt = () => {
@@ -10,6 +11,9 @@ const CreatePrompt = () => {
     prompt: '',
     tags: '',
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [imageName, setImageName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,13 +29,17 @@ const CreatePrompt = () => {
   const fetchPrompt = async () => {
     try {
       const response = await promptsAPI.getById(id);
-      const { title, category, prompt, tags } = response.data;
+      const { title, category, prompt, tags, image_url } = response.data;
       setFormData({
         title,
         category,
         prompt,
         tags: tags.join(', '),
       });
+      if (image_url) {
+        setImagePreview(image_url);
+        setImageName(image_url.split('/').pop());
+      }
     } catch (err) {
       setError('Failed to load prompt');
     }
@@ -41,15 +49,58 @@ const CreatePrompt = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImageName(file.name);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const uploadImage = async (file) => {
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      
+      const { data, error: uploadError } = await supabase.storage
+        .from('prompts')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicUrl } = supabase.storage
+        .from('prompts')
+        .getPublicUrl(fileName);
+
+      return publicUrl.publicUrl;
+    } catch (err) {
+      console.error('Image upload error:', err);
+      throw new Error('Failed to upload image');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
+      let imageUrl = imagePreview;
+
+      // Upload new image if selected
+      if (imageFile) {
+        imageUrl = await uploadImage(imageFile);
+      }
+
       const submitData = {
         ...formData,
         tags: formData.tags.split(',').map((tag) => tag.trim()).filter(Boolean),
+        image_url: imageUrl || null,
       };
 
       if (isEditMode) {
@@ -60,7 +111,7 @@ const CreatePrompt = () => {
 
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to save prompt');
+      setError(err.message || 'Failed to save prompt');
     } finally {
       setLoading(false);
     }
@@ -81,83 +132,99 @@ const CreatePrompt = () => {
           )}
         </h2>
         {error && <div className="error-message">{error}</div>}
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Title *</label>
+            <label htmlFor="title">Title *</label>
             <input
+              id="title"
               type="text"
               name="title"
+              placeholder="Enter prompt title"
               value={formData.title}
               onChange={handleChange}
               required
-              placeholder="Enter a descriptive title for your prompt"
             />
           </div>
 
           <div className="form-group">
-            <label>Category *</label>
-            <select name="category" value={formData.category} onChange={handleChange}>
+            <label htmlFor="category">Category</label>
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
               <option value="General">General</option>
-              <option value="Creative">Creative</option>
-              <option value="Writing">Writing</option>
-              <option value="Technical">Technical</option>
+              <option value="Creative Writing">Creative Writing</option>
               <option value="Business">Business</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Education">Education</option>
-              <option value="Music">Music</option>
-              <option value="Fun">Fun</option>
-              <option value="Startups">Startups</option>
-              <option value="AI Tools">AI Tools</option>
-              <option value="Productivity">Productivity</option>
-              <option value="Design">Design</option>
               <option value="Coding">Coding</option>
-              <option value="Data Analysis">Data Analysis</option>
+              <option value="Education">Education</option>
+              <option value="Marketing">Marketing</option>
             </select>
           </div>
 
           <div className="form-group">
-            <label>Prompt *</label>
+            <label htmlFor="image">Cover Image (Optional)</label>
+            <div className="image-upload">
+              {imagePreview && (
+                <div className="image-preview-container">
+                  <img src={imagePreview} alt="Preview" className="image-preview" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setImageFile(null);
+                      setImagePreview(null);
+                      setImageName('');
+                    }}
+                    className="btn-remove-image"
+                  >
+                    <i className="fa-solid fa-x"></i> Remove
+                  </button>
+                </div>
+              )}
+              <input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="file-input"
+              />
+              <label htmlFor="image" className="file-label">
+                <i className="fa-solid fa-image"></i> {imageName || 'Choose Image'}
+              </label>
+              <p className="hint">PNG, JPG, WebP. Max 5MB</p>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="prompt">Prompt *</label>
             <textarea
+              id="prompt"
               name="prompt"
+              placeholder="Enter your prompt here..."
               value={formData.prompt}
               onChange={handleChange}
               required
-              rows="10"
-              placeholder="Write your AI prompt here. Be specific and clear about what you want to achieve..."
+              rows="8"
             />
           </div>
 
           <div className="form-group">
-            <label>Tags (comma separated)</label>
+            <label htmlFor="tags">Tags (comma-separated)</label>
             <input
+              id="tags"
               type="text"
               name="tags"
+              placeholder="e.g. creative, ai, writing"
               value={formData.tags}
               onChange={handleChange}
-              placeholder="Add relevant tags, separated by commas"
             />
           </div>
 
-          <div className="form-actions">
-            <button type="button" onClick={() => navigate('/')} className="btn-cancel">
-              <i className="fa-solid fa-xmark"></i> Cancel
-            </button>
-            <button type="submit" className="btn-submit" disabled={loading}>
-              {loading ? (
-                <>
-                  <i className="fa-solid fa-spinner fa-spin"></i> Saving...
-                </>
-              ) : isEditMode ? (
-                <>
-                  <i className="fa-solid fa-check"></i> Update Prompt
-                </>
-              ) : (
-                <>
-                  <i className="fa-solid fa-check"></i> Create Prompt
-                </>
-              )}
-            </button>
-          </div>
+          <button type="submit" disabled={loading} className="btn-submit">
+            {loading ? 'Saving...' : isEditMode ? 'Update Prompt' : 'Create Prompt'}
+          </button>
         </form>
       </div>
     </div>

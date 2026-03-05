@@ -86,6 +86,9 @@ const PromptDetail = () => {
         </div>
       )}
       <div className="detail-box">
+        <div className="back-link-top">
+          <Link to="/"><i className="fa-solid fa-arrow-left"></i> Back</Link>
+        </div>
         <div className="detail-header">
           <div>
             <h1>{prompt.title}</h1>
@@ -123,15 +126,13 @@ const PromptDetail = () => {
         </div>
 
         <div className="prompt-content">
-          <h3>Prompt:</h3>
+          <div className="prompt-header-top">
+            <h3>Prompt:</h3>
+            <button onClick={handleCopy} className="btn-copy">
+              <i className="fa-solid fa-copy"></i> Copy
+            </button>
+          </div>
           <pre>{prompt.prompt}</pre>
-          <button onClick={handleCopy} className="btn-copy">
-            <i className="fa-solid fa-copy"></i> Copy to Clipboard
-          </button>
-        </div>
-
-        <div className="back-link">
-          <Link to="/"><i className="fa-solid fa-arrow-left"></i> Back to Home</Link>
         </div>
       </div>
     </div>
