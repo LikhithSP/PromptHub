@@ -1,5 +1,5 @@
 # 🚀 PromptHub
-<img src="preview 01.png" alt="PromptHub Preview 01" width="100%" />
+<img src="preview 01.png" alt="PromptHub Preview" width="100%" />
 A modern AI prompts sharing and creating platform built with React and Supabase
 
 ## Features
