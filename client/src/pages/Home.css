@@ -13,7 +13,7 @@
   /* use a subtle dark overlay so the image details remain visible but text stays readable */
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-    url('https://images.unsplash.com/photo-1493673272479-a20888bcee10?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI1fHx8ZW58MHx8fHx8');
+    url('https://www.shutterstock.com/image-illustration/modern-fractal-glass-gradient-background-600nw-2717890317.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -22,7 +22,7 @@
 [data-theme="dark"] .hero {
   background-image:
     linear-gradient(rgba(12, 12, 12, 0.55), rgba(12, 12, 12, 0.55)),
-    url('https://images.unsplash.com/photo-1493673272479-a20888bcee10?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI1fHx8ZW58MHx8fHx8');
+    url('https://www.shutterstock.com/image-illustration/modern-fractal-glass-gradient-background-600nw-2717890317.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
