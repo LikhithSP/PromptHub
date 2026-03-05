@@ -28,7 +28,6 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login"><i className="fa-solid fa-right-to-bracket"></i> Login</Link>
-              <Link to="/register"><i className="fa-solid fa-user-plus"></i> Register</Link>
             </>
           )}
           <ThemeToggle />
